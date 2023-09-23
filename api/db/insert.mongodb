@@ -1,0 +1,61 @@
+use("db_incidentsCampus");
+db.incidents.insertMany([
+  {
+    _id: 1,
+    name: "Incidente 1",
+    description: "Descripción del incidente 1",
+    date: ISODate("2023-09-20"),
+    report_user: 101,
+    severity: "Alta",
+    zone: "Zona A",
+    place: "Lugar A",
+    priority: "Urgente",
+    solution_date: ISODate("2023-09-21"),
+    id_soporte: 201,
+    created_date: ISODate("2023-09-20"),
+    update_date: ISODate("2023-09-20"),
+    delete_date: null,
+  },
+  {
+    _id: 2,
+    name: "Incidente 2",
+    description: "Descripción del incidente 2",
+    date: ISODate("2023-09-21"),
+    report_user: 102,
+    severity: "Media",
+    zone: "Zona B",
+    place: "Lugar B",
+    priority: "Normal",
+    solution_date: null,
+    id_soporte: null,
+    created_date: ISODate("2023-09-21"),
+    update_date: null,
+    delete_date: null,
+  },
+]);
+
+use("db_incidentsCampus");
+db.support.insertMany([
+  {
+    _id: 201,
+    name: "Soporte 1",
+    personal: "Personal A",
+    date: ISODate("2023-09-20"),
+    estado: "Activo",
+    id_incident: 1,
+    created_date: ISODate("2023-09-20"),
+    update_date: ISODate("2023-09-20"),
+    delete_date: null,
+  },
+  {
+    _id: 202,
+    name: "Soporte 2",
+    personal: "Personal B",
+    date: ISODate("2023-09-21"),
+    estado: "Inactivo",
+    id_incident: 2,
+    created_date: ISODate("2023-09-21"),
+    update_date: null,
+    delete_date: null
+  }
+]);
