@@ -1,0 +1,211 @@
+use("db_incidentsCampus")
+db.createCollection("users", {
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["_id","username", "password", "token", "rol_id","rol", "email", "phone"],
+            properties:{
+                _id: {
+                    bsonType: "number",
+                    description: "_id debe ser de tipo int",
+                },
+                username: {
+                    bsonType: "string",
+                    description: "username debe ser de tipo string",
+                },
+                password:{
+                    bsonType: "string",
+                    description: "password should be string"
+                },
+                token: {
+                    bsonType: "array",
+                    description: "token debe ser de tipo array",
+                },
+                rol_id: {
+                    bsonType: "number",
+                    description: "rol_id debe ser de tipo int",
+                },
+                rol: {
+                    bsonType: "string",
+                    description: "rol debe ser de tipo string",
+                },
+                email: {
+                    bsonType: "string",
+                    description: "email debe ser de tipo string",
+                },
+                phone: {
+                    bsonType: "number",
+                    description: "phone debe ser de tipo number",
+                },
+            }
+        }}
+})
+
+use("db_incidentsCampus")
+db.createCollection("discord", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["discordId", "username", "global_name", "guilds", "email"],
+      properties: {
+        _id: {
+          bsonType: "objectId",
+          description: "El ID único del usuario (generado automáticamente)"
+        },
+        discordId: {
+          bsonType: "string",
+          description: "El ID de Discord del usuario"
+        },
+        global_name: {
+            bsonType: "string",
+            description: "El global_name de Discord del usuario"
+          },
+        username: {
+          bsonType: "string",
+          description: "Nombre de usuario de Discord"
+        },
+        email:{
+            bsonType:"string",
+            description:"Email de discord del usuario"
+        },
+        guilds: {
+          bsonType: "array",
+          description: "Lista de servidores y roles del usuario",
+          /* items: {
+            bsonType: "object",
+            required: ["guildId", "roles"],
+            properties: {
+              guildId: {
+                bsonType: "string",
+                description: "ID del servidor de Discord"
+              },
+              roles: {
+                bsonType: "array",
+                description: "Lista de roles en el servidor",
+                items: {
+                  bsonType: "string"
+                }
+              }
+            }
+          } */
+        }
+      }
+    }
+  }
+});
+
+
+use("db_incidentsCampus")
+db.createCollection("incidents", {
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["_id","name", "description", "date", "report_user","severity", "zone", "place", "priority", "solution_date", "id_soporte", "created_date", "update_date", "delete_date"],
+            properties:{
+                _id: {
+                    bsonType: "number",
+                    description: "_id debe ser de tipo int",
+                },
+                name: {
+                    bsonType: "string",
+                    description: "name debe ser de tipo string",
+                },
+                description:{
+                    bsonType: "string",
+                    description: "description should be string"
+                },
+                date: {
+                    bsonType: "date",
+                    description: "date debe ser de tipo date",
+                },
+                report_user: {
+                    bsonType: "number",
+                    description: "report_user debe ser de tipo int",
+                },
+                severity: {
+                    bsonType: "string",
+                    description: "severity debe ser de tipo string",
+                },
+                zone: {
+                    bsonType: "string",
+                    description: "zone debe ser de tipo string",
+                },
+                place: {
+                    bsonType: "string",
+                    description: "place debe ser de tipo string",
+                },
+                priority: {
+                    bsonType: "string",
+                    description: "priority debe ser de tipo string",
+                },
+                solution_date: {
+                    bsonType: ["date","null"],
+                    description: "solution_date debe ser de tipo date",
+                },
+                id_soporte: {
+                    bsonType: ["number","null"],
+                    description: "id_soporte debe ser de tipo number",
+                },
+                created_date: {
+                    bsonType: "date",
+                    description: "created_date debe ser de tipo date",
+                },
+                update_date: {
+                    bsonType: ["date","null"],
+                    description: "update_date debe ser de tipo date",
+                },
+                delete_date: {
+                    bsonType: ["date","null"],
+                    description: "delete_date debe ser de tipo date",
+                },
+            }
+        }}
+})
+
+
+use("db_incidentsCampus")
+db.createCollection("support", {
+    validator:{
+        $jsonSchema:{
+            bsonType: "object",
+            required: ["_id","name", "personal", "date", "estado","id_incident", "created_date", "update_date", "delete_date"],
+            properties:{
+                _id: {
+                    bsonType: "number",
+                    description: "_id debe ser de tipo int",
+                },
+                name: {
+                    bsonType: "string",
+                    description: "name debe ser de tipo string",
+                },
+                personal:{
+                    bsonType: "string",
+                    description: "personal should be string"
+                },
+                date: {
+                    bsonType: "date",
+                    description: "date debe ser de tipo date",
+                },
+                estado: {
+                    bsonType: "string",
+                    description: "estado debe ser de tipo estado",
+                },
+                id_incident: {
+                    bsonType: "number",
+                    description: "id_incident debe ser de tipo number",
+                },
+                created_date: {
+                    bsonType: "date",
+                    description: "created_date debe ser de tipo date",
+                },
+                update_date: {
+                    bsonType:["date","null"],
+                    description: "update_date debe ser de tipo date",
+                },
+                delete_date: {
+                    bsonType: ["date","null"],
+                    description: "delete_date debe ser de tipo date",
+                },
+            }
+        }}
+})
