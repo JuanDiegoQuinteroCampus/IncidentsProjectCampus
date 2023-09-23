@@ -13,7 +13,12 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.15.0"
+    "react-router-dom": "^6.15.0",
+    "express-session": "1.17.3",
+    "passport": "^0.6.0",
+    "passport-discord": "^0.1.4",
+    "passport-google-oauth20": "2.0.0"
+    
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
@@ -21,6 +26,7 @@
     "@vitejs/plugin-react-swc": "^3.3.2",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
+    "connect-mongo": "5.0.0",
     "cookie-parser": "1.4.6",
     "cors": "2.8.5",
     "dotenv": "16.3.1",
@@ -35,7 +41,8 @@
     "express-session": "1.17.3",
     "express-validator": "7.0.1",
     "jose": "4.14.4",
-    "mongodb": "5.7.0",
+    "mongodb": "^5.1.0",
+    "nanoid": "4.0.2",
     "nodemon": "3.0.1",
     "passport": "0.6.0",
     "passport-http-bearer": "1.0.1",
