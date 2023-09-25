@@ -34,7 +34,7 @@ appToken.get("/", async (req, res) => {
     try {
         const { username, password, id_rol } = req.body;
         const conexionDB = await con();
-        const user = await conexionDB.collection('usuarios').findOne({ username: username });
+        const user = await conexionDB.collection('users').findOne({ username: username });
 
         if (!user || user.password !== password) {
             return res.status(401).json({ status: 401, message: 'Credenciales inválidas' });
