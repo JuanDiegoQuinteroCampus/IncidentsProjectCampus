@@ -1,45 +1,33 @@
 use("db_incidentsCampus")
-db.createCollection("users", {
+db.createCollection("users",{
     validator:{
-        $jsonSchema:{
-            bsonType: "object",
-            required: ["_id","username", "password", "token", "rol_id","rol", "email", "phone"],
-            properties:{
-                _id: {
-                    bsonType: "number",
-                    description: "_id debe ser de tipo int",
-                },
-                username: {
-                    bsonType: "string",
-                    description: "username debe ser de tipo string",
-                },
-                password:{
-                    bsonType: "string",
-                    description: "password should be string"
-                },
-                token: {
-                    bsonType: "array",
-                    description: "token debe ser de tipo array",
-                },
-                rol_id: {
-                    bsonType: "number",
-                    description: "rol_id debe ser de tipo int",
-                },
-                rol: {
-                    bsonType: "string",
-                    description: "rol debe ser de tipo string",
-                },
-                email: {
-                    bsonType: "string",
-                    description: "email debe ser de tipo string",
-                },
-                phone: {
-                    bsonType: "number",
-                    description: "phone debe ser de tipo number",
-                },
-            }
-        }}
+    $jsonSchema:{
+        bsonType: "object",
+        required: ["_id","username", "password", "token", "id_rol"],
+        properties:{
+            _id: {
+                bsonType: "number",
+                description: "_id debe ser de tipo int",
+            },
+            username: {
+                bsonType: "string",
+                description: "username debe ser de tipo string",
+            },
+            password:{
+                bsonType: "string"
+            },
+            token: {
+                bsonType: "array",
+                description: "token debe ser de tipo array",
+            },
+            id_rol: {
+                bsonType: "number",
+                description: "id_rol debe ser de tipo int",
+            },
+        }
+    }}
 })
+
 
 use("db_incidentsCampus")
 db.createCollection("discord", {
