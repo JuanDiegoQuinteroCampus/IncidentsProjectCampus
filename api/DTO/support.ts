@@ -24,7 +24,7 @@ export class SupportDTO {
   date: Date;
 
   @Expose({ name: 'estado' })
-  @IsString({ message: 'estado debe ser de tipo estado' })
+  @IsString({ message: 'estado debe ser de tipo string' })
   @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
   estado: string;
 
@@ -50,6 +50,12 @@ export class SupportDTO {
   @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "delete_date" tiene un Formato Invalido' })
   delete_date?: Date;
 
+  @Expose({ name: 'support_person' })
+  @IsString({ message: 'support_person debe ser de tipo estado' })
+  @IsDefined({ message: 'El parametro "support_person" es Obligatorio' })
+  support_person: string;
+
+
   constructor(data: Partial<SupportDTO>) {
     Object.assign(this, data);
     this._id = 0;
@@ -58,5 +64,6 @@ export class SupportDTO {
     this.estado = '';
     this.id_incident = 0;
     this.created_date = new Date();
+    this.support_person = '';
   }
 }
