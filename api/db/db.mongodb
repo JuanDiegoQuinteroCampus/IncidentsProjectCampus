@@ -28,7 +28,7 @@ db.createCollection("users",{
     }}
 })
 
-
+//! Recordar cambiar el esquema para que discordId NO SEA string si no number 
 use("db_incidentsCampus")
 db.createCollection("discord", {
   validator: {
@@ -156,7 +156,7 @@ db.createCollection("support", {
     validator:{
         $jsonSchema:{
             bsonType: "object",
-            required: ["_id","name", "personal", "date", "estado","id_incident", "created_date", "update_date", "delete_date"],
+            required: ["_id","name", "personal", "date", "estado","id_incident", "created_date", "update_date", "delete_date","support_person" ],
             properties:{
                 _id: {
                     bsonType: "number",
@@ -193,6 +193,10 @@ db.createCollection("support", {
                 delete_date: {
                     bsonType: ["date","null"],
                     description: "delete_date debe ser de tipo date",
+                },
+                support_person: {
+                    bsonType: "string",
+                    description: "support_person debe ser de tipo string",
                 },
             }
         }}
