@@ -3,14 +3,18 @@ import { Expose } from 'class-transformer';
 import { IsInt, IsString, IsDate, IsOptional, IsNotEmpty, Matches, IsDefined } from 'class-validator';
 
 export class IncidentDTO {
+  @Expose({ name: '_id' })
   @IsInt({ message: '_id debe ser de tipo int' })
+  @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
   _id: number;
 
+  @Expose({ name: 'date' })
   @IsString({ message: 'name debe ser de tipo string' })
   @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
   @IsNotEmpty({ message: 'El campo "name" no puede estar vacío' })
   name: string;
 
+  @Expose({ name: 'description' })
   @IsString({ message: 'description debe ser de tipo string' })
   @IsNotEmpty({ message: 'El campo "description" no puede estar vacío' })
   @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
