@@ -20,10 +20,10 @@ appDiscord.use((req, res, next) => {
 });
 appDiscord.use(passportHelper.authenticate("bearer", {session: false}));
 appDiscord.get("/all", middlewareVerify, getAllDiscord);
-appDiscord.get("/:id", middlewareVerify, middlewareParamDiscord,(req, res, next) => {
-    const discordId = req.params.id; 
-    getAnimalById(req, res, discordId)
-});
+// appDiscord.get("/:id", middlewareVerify, middlewareParamDiscord,(req, res, next) => {
+//     const discordId = req.params.id; 
+//     getAllDiscord(req, res, discordId)
+// });
 appDiscord.post("/post", middlewareVerify, proxyDiscord , postDiscord);
 appDiscord.put("/update/:id", middlewareVerify, proxyDiscord, async (req, res) => {
     const discordId = req.params.id; 
