@@ -28,7 +28,6 @@ db.createCollection("users",{
     }}
 })
 
-//! Recordar cambiar el esquema para que discordId NO SEA string si no number 
 use("db_incidentsCampus")
 db.createCollection("discord", {
   validator: {
@@ -41,7 +40,7 @@ db.createCollection("discord", {
           description: "El ID único del usuario (generado automáticamente)"
         },
         discordId: {
-          bsonType: "string",
+          bsonType: "number",
           description: "El ID de Discord del usuario"
         },
         global_name: {
@@ -88,7 +87,7 @@ db.createCollection("incidents", {
     validator:{
         $jsonSchema:{
             bsonType: "object",
-            required: ["_id","name", "description", "date", "report_user","severity", "zone", "place", "priority", "solution_date", "id_soporte", "created_date", "update_date", "delete_date"],
+            required: ["_id","name", "description", "date","severity", "zone", "place", "priority", "solution_date", "id_soporte", "update_date", "delete_date", "name_User"],
             properties:{
                 _id: {
                     bsonType: "number",
@@ -106,10 +105,7 @@ db.createCollection("incidents", {
                     bsonType: "date",
                     description: "date debe ser de tipo date",
                 },
-                report_user: {
-                    bsonType: "number",
-                    description: "report_user debe ser de tipo int",
-                },
+                
                 severity: {
                     bsonType: "string",
                     description: "severity debe ser de tipo string",
@@ -145,6 +141,10 @@ db.createCollection("incidents", {
                 delete_date: {
                     bsonType: ["date","null"],
                     description: "delete_date debe ser de tipo date",
+                },
+                name_User: {
+                    bsonType: "string",
+                    description: "name_User debe ser de tipo string",
                 },
             }
         }}
