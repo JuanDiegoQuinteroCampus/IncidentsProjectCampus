@@ -5,7 +5,6 @@ db.incidents.insertMany([
     name: "Incidente 1",
     description: "Descripción del incidente 1",
     date: ISODate("2023-09-20"),
-    report_user: 101,
     severity: "Alta",
     zone: "Zona A",
     place: "Lugar A",
@@ -15,13 +14,14 @@ db.incidents.insertMany([
     created_date: ISODate("2023-09-20"),
     update_date: ISODate("2023-09-20"),
     delete_date: null,
+    name_User: "Juan Avila"
+
   },
   {
     _id: 2,
     name: "Incidente 2",
     description: "Descripción del incidente 2",
     date: ISODate("2023-09-21"),
-    report_user: 102,
     severity: "Media",
     zone: "Zona B",
     place: "Lugar B",
@@ -31,6 +31,7 @@ db.incidents.insertMany([
     created_date: ISODate("2023-09-21"),
     update_date: null,
     delete_date: null,
+    name_User: "Juan Diego Quintero"
   },
 ]);
 
