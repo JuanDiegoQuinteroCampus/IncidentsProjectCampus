@@ -3,6 +3,7 @@ import { con } from '../db/atlas.js';
 import { Router } from 'express';
 import { SignJWT, jwtVerify } from 'jose';
 import passport from 'passport';
+import { ObjectId } from 'mongodb';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
 
 
@@ -11,7 +12,7 @@ import { Strategy as BearerStrategy } from 'passport-http-bearer';
 const appToken = Router();
 const appVerify = Router();
 
-export const ValidateToken = async (req , token) => {
+export const ValidateToken = async (req, token) => {
     try {
         const db = await con();
         const encoder = new TextEncoder();
@@ -19,16 +20,32 @@ export const ValidateToken = async (req , token) => {
             token,
             encoder.encode(process.env.JWT_PRIVATE_KEY)
         );
+        if (!jwtData.payload.id) {
+            console.error('Token JWT no contiene un campo "id" válido.');
+            req.data = null; 
+            return null;
+        }
+        const userId = new ObjectId(jwtData.payload.id);
+
         let res = await db.collection("users").findOne({
-            "_id": parseInt(jwtData.payload.id)
+            "_id": userId
         });
-        
-        req.data = res._id;
+
+        if (!res) {
+            console.error('Token JWT no coincide con ningún usuario.');
+            req.data = null; 
+            return null;
+        }
+
+        req.data = res ? res._id : null;
         return res; 
     } catch (error) {
+        console.error("Error en ValidateToken:", error);
         throw error;
     }
 }
+
+
 
 appToken.get("/", async (req, res) => {
     try {
@@ -36,27 +53,38 @@ appToken.get("/", async (req, res) => {
         const db = await con();
         const user = await db.collection('users').findOne({ username: username });
 
-        if (!user || user.password !== password) {
+        if (!user || !user._id) {
             return res.status(401).json({ status: 401, message: 'Credenciales inválidas' });
         }
-        const id = user._id.toString();
+
+        const userId = user._id.toString();
         const encoder = new TextEncoder();
-        const jwtConstructor = await new SignJWT({ id: id, username, password, id_rol: id_rol })
+
+        const tokenPayload = {
+            id: userId,
+            username: username,
+            password: password,
+
+        };
+
+        const jwtConstructor = await new SignJWT(tokenPayload)
             .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
             .setIssuedAt()
             .setExpirationTime('14h')
             .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
+
         return res.status(200).json({ status: 200, jwt: jwtConstructor });
     } catch (error) {
         console.error('Error al generar el token:', error);
         res.status(500).json({ status: 500, message: 'Error interno del servidor' });
-      }
+    }
 });
-
 appVerify.use("/", async (req, res, next) => {
     try {
         const conexionDB = await con();
-        const user = await conexionDB.collection('users').findOne({ "_id": parseInt(req.data) });
+        const userId = new ObjectId(req.data);
+        const user = await conexionDB.collection('users').findOne({  "_id": userId
+        });
         const id_rol = user.id_rol
 
         if (id_rol === 1) {
