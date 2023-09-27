@@ -5,6 +5,7 @@ import { appToken, appVerify, passport } from "./helpers/token.js";
 import appDiscord from "./routers/discord.js";
 import appIncidents from "./routers/incidents.js";
 import appSupport from "./routers/support.js";
+import appUsers from "./routers/users.js";
 
 
 const env = loadEnv("development", process.cwd(), 'VITE')
@@ -22,6 +23,9 @@ app.use("/discord", passport.authenticate('bearer', { session: false}) ,appVerif
 app.use("/incidents", passport.authenticate('bearer', { session: false}) ,appVerify, appIncidents);
 
 app.use("/support", passport.authenticate('bearer', { session: false}) ,appVerify, appSupport);
+
+app.use("/users", passport.authenticate('bearer', { session: false}) ,appVerify, appUsers);
+
 
 const config={
     port: env.VITE_PORT_BACKEND,
