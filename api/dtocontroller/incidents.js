@@ -14,47 +14,49 @@ export class IncidentDTO {
         Object.assign(this, data);
         this._id = 0;
         this.date = '';
-        this.report_user = 0;
         this.id_soporte = 0;
-        this.created_date = new Date();
+        this.created_date = '';
     }
 }
 __decorate([
+    Expose({ name: '_id' }),
     IsInt({ message: '_id debe ser de tipo int' }),
+    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
     __metadata("design:type", Number)
 ], IncidentDTO.prototype, "_id", void 0);
 __decorate([
+    Expose({ name: 'name' }),
     IsString({ message: 'name debe ser de tipo string' }),
-    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
+    IsDefined({ message: 'El parametro "name" es Obligatorio' }),
     IsNotEmpty({ message: 'El campo "name" no puede estar vacío' }),
     __metadata("design:type", String)
 ], IncidentDTO.prototype, "name", void 0);
 __decorate([
+    Expose({ name: 'description' }),
     IsString({ message: 'description debe ser de tipo string' }),
     IsNotEmpty({ message: 'El campo "description" no puede estar vacío' }),
-    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
+    IsDefined({ message: 'El parametro "description" es Obligatorio' }),
     __metadata("design:type", String)
 ], IncidentDTO.prototype, "description", void 0);
 __decorate([
     Expose({ name: 'date' }),
-    IsOptional(),
-    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
+    IsDefined({ message: 'El parametro "date" es Obligatorio' }),
     IsString({ message: 'El parametro "date" es de tipo String' }),
     Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "date" tiene un Formato Invalido' }),
     __metadata("design:type", String)
 ], IncidentDTO.prototype, "date", void 0);
-__decorate([
-    Expose({ name: 'report_user' }),
-    IsDefined({ message: 'El parametro "report_user" es Obligatorio' }),
-    IsInt({ message: 'report_user debe ser de tipo int' }),
-    __metadata("design:type", Number)
-], IncidentDTO.prototype, "report_user", void 0);
 __decorate([
     Expose({ name: 'severity' }),
     IsDefined({ message: 'El parametro "severity" es Obligatorio' }),
     IsString({ message: 'severity debe ser de tipo string' }),
     __metadata("design:type", String)
 ], IncidentDTO.prototype, "severity", void 0);
+__decorate([
+    Expose({ name: 'id_soporte' }),
+    IsOptional(),
+    IsInt({ message: 'id_soporte debe ser de tipo number' }),
+    __metadata("design:type", Number)
+], IncidentDTO.prototype, "id_soporte", void 0);
 __decorate([
     Expose({ name: 'zone' }),
     IsDefined({ message: 'El parametro "zone" es Obligatorio' }),
@@ -75,35 +77,35 @@ __decorate([
 ], IncidentDTO.prototype, "priority", void 0);
 __decorate([
     Expose({ name: 'solution_date' }),
-    IsDefined({ message: 'El parametro "solution_date" es Obligatorio' }),
+    IsOptional(),
     IsString({ message: 'El parametro "solution_date" es de tipo String' }),
     Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "solution_date" tiene un Formato Invalido' }),
     __metadata("design:type", Date)
 ], IncidentDTO.prototype, "solution_date", void 0);
 __decorate([
-    Expose({ name: 'id_soporte' }),
-    IsDefined({ message: 'El parametro "id_soporte" es Obligatorio' }),
-    IsInt({ message: 'id_soporte debe ser de tipo number' }),
-    __metadata("design:type", Number)
-], IncidentDTO.prototype, "id_soporte", void 0);
-__decorate([
     Expose({ name: 'created_date' }),
     IsOptional(),
     IsString({ message: 'El parametro "created_date" es de tipo String' }),
     Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "created_date" tiene un Formato Invalido' }),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], IncidentDTO.prototype, "created_date", void 0);
 __decorate([
     Expose({ name: 'update_date' }),
     IsOptional(),
     IsString({ message: 'El parametro "update_date" es de tipo String' }),
     Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "update_date" tiene un Formato Invalido' }),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], IncidentDTO.prototype, "update_date", void 0);
 __decorate([
     Expose({ name: 'delete_date' }),
     IsOptional(),
     IsString({ message: 'El parametro "delete_date" es de tipo String' }),
     Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "delete_date" tiene un Formato Invalido' }),
-    __metadata("design:type", Date)
+    __metadata("design:type", String)
 ], IncidentDTO.prototype, "delete_date", void 0);
+__decorate([
+    Expose({ name: 'name_User' }),
+    IsDefined({ message: 'El parametro "name_User" es Obligatorio' }),
+    IsString({ message: 'name_User debe ser de tipo string' }),
+    __metadata("design:type", String)
+], IncidentDTO.prototype, "name_User", void 0);

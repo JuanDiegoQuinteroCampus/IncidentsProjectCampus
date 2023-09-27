@@ -13,7 +13,6 @@ export class DiscordDTO {
     constructor(data) {
         Object.assign(this, data);
         this.discordId = 0;
-        this.nombre = '';
         this.global_name = '';
         this.username = '';
         this.email = '';
@@ -21,25 +20,19 @@ export class DiscordDTO {
     }
 }
 __decorate([
-    Expose({ name: 'ID_Discord' }),
+    Expose({ name: 'discordId' }),
     IsDefined({ message: 'El parametro "ID_Discord" es Obligatorio' }),
     IsInt({ message: 'El parametro "ID_Discord" es de tipo Number' }),
     __metadata("design:type", Number)
 ], DiscordDTO.prototype, "discordId", void 0);
 __decorate([
-    Expose({ name: 'nombre' }),
-    IsDefined({ message: 'El parametro "nombre" es Obligatorio' }),
-    IsString({ message: 'El parametro "nombre" es de tipo String' }),
-    __metadata("design:type", String)
-], DiscordDTO.prototype, "nombre", void 0);
-__decorate([
-    Expose({ name: 'User' }),
+    Expose({ name: 'global_name' }),
     IsDefined({ message: 'El parametro "User" es Obligatorio' }),
     IsString({ message: 'El parametro "User" es de tipo String' }),
     __metadata("design:type", String)
 ], DiscordDTO.prototype, "global_name", void 0);
 __decorate([
-    Expose({ name: 'UserName' }),
+    Expose({ name: 'username' }),
     IsDefined({ message: 'El parametro "UserName" es Obligatorio' }),
     IsString({ message: 'El parametro "UserName" es de tipo string' }),
     __metadata("design:type", String)
