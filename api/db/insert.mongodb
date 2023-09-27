@@ -67,18 +67,18 @@ db.support.insertMany([
 use("db_incidentsCampus");
   db.users.insertMany([
     {
-        "_id": 1,
-        "username": "Admin",
-        "password": "contraseña1",
-        "token": [],
-        "id_rol": 1
+        CC: 1095303358,
+        username: "Admin",
+        password: "contraseña",
+        email:"juandiegoquintero2505@gmail.com",
+        id_rol: 1
       },
       {
-        "_id": 2,
-        "username": "User",
-        "password": "contraseña2",
-        "token": [],
-        "id_rol": 2
+        CC: 345724575,
+        username: "User",
+        password: "contraseña2",
+        email:"Andresfajardo@gmail.com",
+        id_rol: 2
       }
   ])
 

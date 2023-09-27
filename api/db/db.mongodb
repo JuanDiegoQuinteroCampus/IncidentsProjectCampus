@@ -3,11 +3,14 @@ db.createCollection("users",{
     validator:{
     $jsonSchema:{
         bsonType: "object",
-        required: ["_id","username", "password", "token", "id_rol"],
+        required: ["_id","CC","username", "password", "email",  "id_rol"],
         properties:{
             _id: {
+                bsonType: "objectId",
+            },
+            CC: {
                 bsonType: "number",
-                description: "_id debe ser de tipo int",
+                description: "CC debe ser de tipo int",
             },
             username: {
                 bsonType: "string",
@@ -16,9 +19,9 @@ db.createCollection("users",{
             password:{
                 bsonType: "string"
             },
-            token: {
-                bsonType: "array",
-                description: "token debe ser de tipo array",
+            email:{
+                bsonType: "string",
+                description: "email debe ser de tipo string",
             },
             id_rol: {
                 bsonType: "number",
