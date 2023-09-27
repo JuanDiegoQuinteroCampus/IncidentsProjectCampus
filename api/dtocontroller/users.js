@@ -8,23 +8,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Expose } from 'class-transformer';
-import { IsDefined, IsString, IsInt } from 'class-validator';
+import { IsDefined, IsString, Matches, IsInt, IsEmail, IsOptional } from 'class-validator';
 export class UsersDTO {
     constructor(data) {
         Object.assign(this, data);
-        this._id = 0;
+        this.CC = 0;
         this.username = '';
         this.password = '';
-        this.token = '';
         this.id_rol = 0;
+        this.email = '';
     }
 }
 __decorate([
-    Expose({ name: 'id' }),
-    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
-    IsInt({ message: 'El parametro "_id" es de tipo Number' }),
+    Expose({ name: 'CC' }),
+    IsDefined({ message: 'El parametro "CC" es Obligatorio' }),
+    IsInt({ message: 'El parametro "CC" es de tipo Number' }),
     __metadata("design:type", Number)
-], UsersDTO.prototype, "_id", void 0);
+], UsersDTO.prototype, "CC", void 0);
 __decorate([
     Expose({ name: 'username' }),
     IsDefined({ message: 'El parametro "UserName" es Obligatorio' }),
@@ -38,12 +38,18 @@ __decorate([
     __metadata("design:type", String)
 ], UsersDTO.prototype, "password", void 0);
 __decorate([
-    Expose({ name: 'token' }),
-    IsString({ message: 'El parametro "password" es de tipo string' }),
+    Expose({ name: 'email' }),
+    IsDefined({ message: 'El parametro "email" es Obligatorio' }),
+    IsEmail(),
+    IsString({ message: 'El parametro "email" es de tipo string' }),
+    Matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/, {
+        message: 'El parámetro "email" no es una dirección de correo electrónico válida',
+    }),
     __metadata("design:type", String)
-], UsersDTO.prototype, "token", void 0);
+], UsersDTO.prototype, "email", void 0);
 __decorate([
     Expose({ name: 'id_rol' }),
+    IsOptional(),
     IsDefined({ message: 'El parametro "id_rol" es Obligatorio' }),
     IsInt({ message: 'El parametro "id_rol" es de tipo Number' }),
     __metadata("design:type", Number)
