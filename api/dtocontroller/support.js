@@ -18,6 +18,7 @@ export class SupportDTO {
         this.estado = '';
         this.id_incident = 0;
         this.created_date = new Date();
+        this.support_person = '';
     }
 }
 __decorate([
@@ -29,13 +30,13 @@ __decorate([
 __decorate([
     Expose({ name: 'name' }),
     IsString({ message: 'name debe ser de tipo string' }),
-    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
+    IsDefined({ message: 'El parametro "name" es Obligatorio' }),
     __metadata("design:type", String)
 ], SupportDTO.prototype, "name", void 0);
 __decorate([
     Expose({ name: 'personal' }),
     IsString({ message: 'personal debe ser de tipo string' }),
-    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
+    IsDefined({ message: 'El parametro "personal" es Obligatorio' }),
     __metadata("design:type", String)
 ], SupportDTO.prototype, "personal", void 0);
 __decorate([
@@ -47,7 +48,7 @@ __decorate([
 ], SupportDTO.prototype, "date", void 0);
 __decorate([
     Expose({ name: 'estado' }),
-    IsString({ message: 'estado debe ser de tipo estado' }),
+    IsString({ message: 'estado debe ser de tipo string' }),
     IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
     __metadata("design:type", String)
 ], SupportDTO.prototype, "estado", void 0);
@@ -77,3 +78,9 @@ __decorate([
     Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "delete_date" tiene un Formato Invalido' }),
     __metadata("design:type", Date)
 ], SupportDTO.prototype, "delete_date", void 0);
+__decorate([
+    Expose({ name: 'support_person' }),
+    IsString({ message: 'support_person debe ser de tipo estado' }),
+    IsDefined({ message: 'El parametro "support_person" es Obligatorio' }),
+    __metadata("design:type", String)
+], SupportDTO.prototype, "support_person", void 0);
