@@ -1,11 +1,11 @@
-import dotenv from 'dotenv';
+
 import { con } from '../db/atlas.js';
 import { Router } from 'express';
 import { SignJWT, jwtVerify } from 'jose';
 import passport from 'passport';
 import { Strategy as BearerStrategy } from 'passport-http-bearer';
 
-dotenv.config();
+
 
 
 const appToken = Router();
@@ -19,7 +19,7 @@ export const ValidateToken = async (req , token) => {
             token,
             encoder.encode(process.env.JWT_PRIVATE_KEY)
         );
-        let res = await db.collection("usuarios").findOne({
+        let res = await db.collection("users").findOne({
             "_id": parseInt(jwtData.payload.id)
         });
         
@@ -33,8 +33,8 @@ export const ValidateToken = async (req , token) => {
 appToken.get("/", async (req, res) => {
     try {
         const { username, password, id_rol } = req.body;
-        const conexionDB = await con();
-        const user = await conexionDB.collection('users').findOne({ username: username });
+        const db = await con();
+        const user = await db.collection('users').findOne({ username: username });
 
         if (!user || user.password !== password) {
             return res.status(401).json({ status: 401, message: 'Credenciales inválidas' });
@@ -44,7 +44,7 @@ appToken.get("/", async (req, res) => {
         const jwtConstructor = await new SignJWT({ id: id, username, password, id_rol: id_rol })
             .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
             .setIssuedAt()
-            .setExpirationTime('1h')
+            .setExpirationTime('14h')
             .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
         return res.status(200).json({ status: 200, jwt: jwtConstructor });
     } catch (error) {
