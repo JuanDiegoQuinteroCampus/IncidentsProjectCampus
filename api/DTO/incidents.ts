@@ -8,34 +8,33 @@ export class IncidentDTO {
   @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
   _id: number;
 
-  @Expose({ name: 'date' })
+  @Expose({ name: 'name' })
   @IsString({ message: 'name debe ser de tipo string' })
-  @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
+  @IsDefined({ message: 'El parametro "name" es Obligatorio' })
   @IsNotEmpty({ message: 'El campo "name" no puede estar vacío' })
   name: string;
 
   @Expose({ name: 'description' })
   @IsString({ message: 'description debe ser de tipo string' })
   @IsNotEmpty({ message: 'El campo "description" no puede estar vacío' })
-  @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
+  @IsDefined({ message: 'El parametro "description" es Obligatorio' })
   description: string;
 
   @Expose({ name: 'date' })
-  @IsOptional()
-  @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
+  @IsDefined({ message: 'El parametro "date" es Obligatorio' })
   @IsString({ message: 'El parametro "date" es de tipo String' })
   @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "date" tiene un Formato Invalido' })
   date: string;
-
-  @Expose({ name: 'report_user' })
-  @IsDefined({ message: 'El parametro "report_user" es Obligatorio' })
-  @IsInt({ message: 'report_user debe ser de tipo int' })
-  report_user: number;
 
   @Expose({ name: 'severity' })
   @IsDefined({ message: 'El parametro "severity" es Obligatorio' })
   @IsString({ message: 'severity debe ser de tipo string' })
   severity: string;
+
+  @Expose({ name: 'id_soporte' })
+  @IsOptional()
+  @IsInt({ message: 'id_soporte debe ser de tipo number' })
+  id_soporte: number;
 
   @Expose({ name: 'zone' })
   @IsDefined({ message: 'El parametro "zone" es Obligatorio' })
@@ -53,42 +52,41 @@ export class IncidentDTO {
   priority: string;
 
   @Expose({ name: 'solution_date' })
-  @IsDefined({ message: 'El parametro "solution_date" es Obligatorio' })
+  @IsOptional()
   @IsString({ message: 'El parametro "solution_date" es de tipo String' })
   @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "solution_date" tiene un Formato Invalido' })
-  solution_date: Date;
+  solution_date?: Date;
 
-  @Expose({ name: 'id_soporte' })
-  @IsDefined({ message: 'El parametro "id_soporte" es Obligatorio' })
-  @IsInt({ message: 'id_soporte debe ser de tipo number' })
-  id_soporte: number;
 
   @Expose({ name: 'created_date' })
   @IsOptional()
   @IsString({ message: 'El parametro "created_date" es de tipo String' })
   @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "created_date" tiene un Formato Invalido' })
-  created_date: Date;
+  created_date: string;
 
   @Expose({ name: 'update_date' })
   @IsOptional()
   @IsString({ message: 'El parametro "update_date" es de tipo String' })
   @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "update_date" tiene un Formato Invalido' })
-  update_date?: Date;
+  update_date?: string;
 
   @Expose({ name: 'delete_date' })
   @IsOptional()
   @IsString({ message: 'El parametro "delete_date" es de tipo String' })
   @Matches(/^\d{4}-\d{2}-\d{2}$/, { message: 'El parametro "delete_date" tiene un Formato Invalido' })
-  delete_date?: Date;
+  delete_date?: string;
 
-    
+  @Expose({ name: 'name_User' })
+  @IsDefined({ message: 'El parametro "name_User" es Obligatorio' })
+  @IsString({ message: 'name_User debe ser de tipo string' })
+  name_User: string;
+
 
   constructor(data: Partial<IncidentDTO>) {
     Object.assign(this, data);
     this._id = 0;
     this.date = '';
-    this.report_user = 0;
-    this.id_soporte = 0;
-    this.created_date = new Date();
+    this.id_soporte=0;
+    this.created_date = '';
   }
 }

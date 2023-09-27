@@ -9,12 +9,12 @@ export class SupportDTO {
 
   @Expose({ name: 'name' })
   @IsString({ message: 'name debe ser de tipo string' })
-  @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
+  @IsDefined({ message: 'El parametro "name" es Obligatorio' })
   name: string;
 
   @Expose({ name: 'personal' })
   @IsString({ message: 'personal debe ser de tipo string' })
-  @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
+  @IsDefined({ message: 'El parametro "personal" es Obligatorio' })
   personal: string;
 
   @Expose({ name: 'date' })
