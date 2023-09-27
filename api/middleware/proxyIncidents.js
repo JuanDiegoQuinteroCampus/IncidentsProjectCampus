@@ -15,6 +15,7 @@ const middlewareParamIncidentes = Router();
 
 proxyIncidentes.use(async (req, res, next) => {
   try {
+
     const data = plainToClass(IncidentDTO, req.body, { excludeExtraneousValues: true });
     const validationErrors = await validate(data);
     if (validationErrors.length > 0) {
@@ -31,7 +32,8 @@ proxyIncidentes.use(async (req, res, next) => {
 });
 
 middlewareVerify.use((req, res, next) => {
-  if (!req.rateLimit) return;
+  try {
+    if (!req.rateLimit) return;
   let { payload } = req.data;
   const { iat, exp, ...newPayload } = payload;
   payload = newPayload;
@@ -54,12 +56,18 @@ middlewareVerify.use((req, res, next) => {
   };
   const Verify = JSON.stringify(Clone).replace(/\s+/g, '') === JSON.stringify(payloadDateObjects).replace(/\s+/g, '');
   req.data = undefined;
+  
   if (!Verify) {
     console.log("No Autorizado");
     res.status(406).send({ status: 406, message: "No Autorizado" });
   } else {
     console.log("Autorizado");
     next();
+  }
+  } catch (error) {
+    console.log(error);
+    console.log(req.data);
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 });
 
