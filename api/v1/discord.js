@@ -66,13 +66,18 @@ export async function deleteDiscord(req, res, discordId) {
         let id = parseInt(discordId);
         const db = await con();
         const collection = db.collection('discord');
-        await collection.deleteOne({
+        const result = await collection.deleteOne({
             discordId: id
         });
+        result.matchedCount === 1 ? 
         res.status(201).json({
             satus: 201,
             message: "Datos del usuario de discord Eliminado Exitosamente :)"
-        });
+        }):
+        res.status(404).json({
+            satus: 404,
+            message: "Datos del usuario No encontrados :)"
+        })
     } catch (error) {
         console.error(error);
         res.status(500).json({

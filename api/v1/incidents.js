@@ -26,23 +26,24 @@ export async function postIncidents(req, res) {
     try {
         const db = await con();
         const collection = db.collection('incidents');
+
+        const currentDate = new Date();
+
         const insertDocument = {
             ...req.body,
-                date: new Date(req.body.date),
-                solution_date: new Date(req.body.solution_date),
-                created_date: new Date(req.body.created_date),
-                update_date: new Date(req.body.update_date),
-                delete_date: new Date(req.body.delete_date),
-
+            date: new Date(req.body.date),
+            created_date: currentDate, 
         };
+
         await collection.insertOne(insertDocument);
+
         res.status(201).json({
-            satus: 201,
+            status: 201,
             message: "Incidente Registrado Exitosamente :)"
         });
     } catch (e) {
         res.status(500).json({
-            satus: 500,
+            status: 500,
             message: "Internal Server Error :(",
             error: e.message
         });
@@ -58,14 +59,12 @@ export async function putIncidents(req, res, incidenteId) {
             $set: {
                 ...req.body,
                 date: new Date(req.body.date),
-                solution_date: new Date(req.body.solution_date),
-                created_date: new Date(req.body.created_date),
-                update_date: new Date(req.body.update_date),
-                delete_date: new Date(req.body.delete_date),
+                created_date: new Date(),
 
 
             }
         }
+
         let result = await collection.updateOne({ _id: _id }, updateData)
         result.matchedCount === 1 ?
             res.send({ message: "Incidente Exitosamente Actualizado :)" }) :
@@ -86,13 +85,20 @@ export async function deleteIncidents(req, res, incidenteId) {
         let id = parseInt(incidenteId);
         const db = await con();
         const collection = db.collection('incidents');
-        await collection.deleteOne({
-            discordId: id
+        const result = await collection.deleteOne({
+            _id: id
         });
-        res.status(201).json({
-            satus: 201,
-            message: "Datos de las incidencias Eliminado Exitosamente :)"
-        });
+        if (result.deletedCount === 0) {
+            res.status(404).json({
+                status: 404,
+                message: "Not Found"
+            });
+        } else {
+            res.status(201).json({
+                satus: 201,
+                message: "Datos de las incidencias Eliminados Exitosamente :)"
+            });
+        }
     } catch (error) {
         console.error(error);
         res.status(500).json({

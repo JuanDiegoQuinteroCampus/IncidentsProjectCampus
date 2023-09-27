@@ -84,13 +84,18 @@ export async function deleteSupport(req, res, supportID) {
         let id = parseInt(supportID);
         const db = await con();
         const collection = db.collection('support');
-        await collection.deleteOne({
+        const result = await collection.deleteOne({
             _id: id
         });
+        result.matchedCount === 1 ?
         res.status(201).json({
             satus: 201,
             message: "Datos del soporte Eliminado Exitosamente :)"
-        });
+        }):
+        res.status(201).json({
+            satus: 404,
+            message: "No se encontró el dato a eliminar "
+        })
     } catch (error) {
         console.error(error);
         res.status(500).json({
