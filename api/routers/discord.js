@@ -55,7 +55,7 @@ appDiscordV2.use((req, res, next) => {
 
 appDiscordV2.use(passportHelper.authenticate("bearer", {session: false}));
 
-appDiscordV2.get("/priority", getEmailDiscord);
+
 
 appDiscordV2.get("/email/:id", appVerify, (req, res, next) => {
     const users = req.params.id; 

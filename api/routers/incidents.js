@@ -55,7 +55,7 @@ appIncidentsV2.use((req, res, next) => {
 
 appIncidentsV2.use(passportHelper.authenticate("bearer", {session: false}));
 
-appIncidentsV2.get("/priority", getIncidentPriority);
+appIncidentsV2.get("/priority",appVerify, getIncidentPriority);
 
 
 appIncidentsV2.get("/capacidad/:id", appVerify, (req, res, next) => {
