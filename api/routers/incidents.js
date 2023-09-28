@@ -32,8 +32,34 @@ appIncidents.delete("/delete/:id", async (req, res) => {
     const incidenteId = req.params.id; 
     deleteIncidents(req, res, incidenteId)
 });
+// ---------------
+
+appIncidents.get("/priority", getIncidentPriority);
 
 
+appIncidents.get("/capacidad/:id",  (req, res, next) => {
+    const IncidentsId = req.params.id; 
+    getIncidentsById(req, res, IncidentsId)
+});
+
+appIncidents.get("/date/:date", (req, res, next) => {
+    const searchDate = req.params.date; 
+    getIncidentsByDate(req, res, searchDate)
+});
+
+appIncidents.get("/reports", getIncidentReports);
+
+appIncidents.get("/zona", getIncidentZona);
+
+appIncidents.get("/support/:id", (req, res, next) => {
+    const IncidentsId = req.params.id; 
+    getIncidentPerson(req, res, IncidentsId)
+});
+
+appIncidents.get("/whenIncident/:id", (req, res, next) => {
+    const IncidentsId = req.params.id; 
+    getRegisterIncidents(req, res, IncidentsId)
+});
 
 
 
@@ -55,32 +81,9 @@ appIncidentsV2.use((req, res, next) => {
 
 appIncidentsV2.use(passportHelper.authenticate("bearer", {session: false}));
 
-appIncidentsV2.get("/priority",appVerify, getIncidentPriority);
+appIncidentsV2.get("/all", appVerify,getAllIncidents);
 
-
-appIncidentsV2.get("/capacidad/:id", appVerify, (req, res, next) => {
-    const IncidentsId = req.params.id; 
-    getIncidentsById(req, res, IncidentsId)
-});
-
-appIncidentsV2.get("/date/:date", appVerify, (req, res, next) => {
-    const searchDate = req.params.date; 
-    getIncidentsByDate(req, res, searchDate)
-});
-
-appIncidentsV2.get("/reports", getIncidentReports);
-
-appIncidentsV2.get("/zona", getIncidentZona);
-
-appIncidentsV2.get("/support/:id", appVerify, (req, res, next) => {
-    const IncidentsId = req.params.id; 
-    getIncidentPerson(req, res, IncidentsId)
-});
-
-appIncidentsV2.get("/whenIncident/:id", appVerify, (req, res, next) => {
-    const IncidentsId = req.params.id; 
-    getRegisterIncidents(req, res, IncidentsId)
-});
+appIncidentsV2.post("/post",  proxyIncidentes , appVerify,postIncidents);
 
 
 
