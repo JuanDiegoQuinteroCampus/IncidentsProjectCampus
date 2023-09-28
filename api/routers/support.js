@@ -3,6 +3,7 @@ import { deleteSupport, getAllSupport, postSupport, putSupport } from "../v1/sup
 import {  middlewareVerify, DTOData,  middlewareParamSupports, proxySupport } from "../middleware/proxySupport.js";
 import { LimitQuery } from "../helpers/config.js";
 import passportHelper from "../helpers/passportHelper.js"
+import { getSupportActivo } from "../v2/incidents.js";
 
 
 const appSupport = express();
@@ -35,4 +36,27 @@ appSupport.delete("/delete/:id",  async (req, res) => {
     deleteSupport(req, res, supportID)
 });
 
-export default appSupport;
+
+
+
+
+const appSupportV2 = express();
+appSupportV2.use(express.json());
+appSupportV2.use(LimitQuery());
+appSupportV2.use((req, res, next) => {
+    const apiVersion = req.headers["x-api"];
+    if (apiVersion === "1.1") {
+        next();
+    } else {
+        res.status(400).json({
+            status: 400,
+            message: "API Version No Compatible :("
+        });
+    }
+});
+
+appSupportV2.use(passportHelper.authenticate("bearer", {session: false}));
+
+appSupportV2.get("/activo", getSupportActivo);
+
+export  {appSupport, appSupportV2};
