@@ -1,5 +1,4 @@
-import { use } from "passport";
-import { con } from "../../db/atlas.js";
+import { con } from "../db/atlas.js";
 
 // 1. muestreme los incidente mas con mayor prioridad
 export async function getIncidentPriority(req, res){
@@ -69,7 +68,7 @@ export async function getIncidentReports(req, res){
     try {
         let db = await con();
         let collection = db.collection("incidents");
-        let result = await collection.find({}, {projection:{_id:1, name:1, report_user:1, description:1 }}).toArray();
+        let result = await collection.find({}, {projection:{_id:1, name:1, name_User:1, description:1 }}).toArray();
         if (!result || result.length === 0) {
             res.status(404).json({
                 status: 404,
@@ -154,9 +153,8 @@ export async function getIncidentPerson(req, res, IncidentsId){
 
 
 // 7.listar las personas encargadas de soporte que se encuentran activas
-export async function getSupportActivo(req, res, IncidentsId){
+export async function getSupportActivo(req, res){
     try {
-        let id = parseInt(IncidentsId);
         let db = await con();
         let collection = db.collection("support");
         let result = await collection.find({estado: {$regex:/^activo$/i}}).toArray();
@@ -196,11 +194,11 @@ export async function getRegisterIncidents(req, res, IncidentsId){
     }
 
     // 9. Listar el email con el cual tiene discord registrado
-    export async function getEmailDiscord(req, res, user){
-        let user = parseInt(user);
+    export async function getEmailDiscord(req, res, users){
+        let discordId = parseInt(users);
         let db = await con();
         let collection = db.collection("discord");
-        let result = await collection.find({username:user}, {projection:{ global_name:1, email:1 }}).toArray();
+        let result = await collection.find({discordId:discordId}, {projection:{ username:1, email:1 }}).toArray();
         try {
             if (!result || result.length === 0) {
                 res.status(404).json({
@@ -217,11 +215,11 @@ export async function getRegisterIncidents(req, res, IncidentsId){
     
 
 //10. Buscar el nombre de usuario global
-export async function getNameDiscord(req, res, user){
-    let user = parseInt(user);
+export async function getNameDiscord(req, res, users){
+    let user = parseInt(users);
     let db = await con();
-    let collection = db.collection("incidents");
-    let result = await collection.find({}, {projection:{ global_name:1, discordId:1 }}).toArray();
+    let collection = db.collection("discord");
+    let result = await collection.find({discordId:user}, {projection:{ global_name:1, discordId:1 }}).toArray();
     try {
         if (!result || result.length === 0) {
             res.status(404).json({
@@ -236,11 +234,11 @@ export async function getNameDiscord(req, res, user){
     }
     }
     //11.  Buscar el rol que tiene los usuarios por medio dle nombre
-    export async function getRolUser(req, res, user){
-        let user = parseInt(user);
+    export async function getRolUser(req, res, users){
+        let user = users;
         let db = await con();
-        let collection = db.collection("incidents");
-        let result = await collection.find({username:user},{projection:{id_rol:1}}).toArray();
+        let collection = db.collection("users");
+        let result = await collection.find({username:user},{projection:{id_rol:1, CC:1, email:1}}).toArray();
         try {
             if (!result || result.length === 0) {
                 res.status(404).json({
