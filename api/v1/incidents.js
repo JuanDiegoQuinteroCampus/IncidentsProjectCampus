@@ -45,7 +45,7 @@ export async function postIncidents(req, res) {
         res.status(500).json({
             status: 500,
             message: "Internal Server Error :(",
-            error: e.message
+            error: "Dato duplicado"
         });
     }
 };
@@ -74,7 +74,7 @@ export async function putIncidents(req, res, incidenteId) {
         res.status(500).json({
             satus: 500,
             message: `Internal Server Error :(`,
-            error: e.message
+            error: "Error al actualizar el dato, actualización no permitida"
         });
     }
 
