@@ -40,8 +40,8 @@ export const ValidateToken = async (req, token) => {
         req.data = res ? res._id : null;
         return res; 
     } catch (error) {
-        console.error("Error en ValidateToken:", error);
-        throw error;
+        console.error("Error en ValidateToken, o token incorrecto", /* error */);
+        // throw error;
     }
 }
 
