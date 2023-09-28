@@ -36,39 +36,23 @@ appDiscord.delete("/delete/:id", middlewareVerify, async (req, res) => {
     deleteDiscord(req, res, discordId)
 });
 
+// ----------
 
-
-const appDiscordV2 = express();
-appDiscordV2.use(express.json());
-appDiscordV2.use(LimitQuery());
-appDiscordV2.use((req, res, next) => {
-    const apiVersion = req.headers["x-api"];
-    if (apiVersion === "1.1") {
-        next();
-    } else {
-        res.status(400).json({
-            status: 400,
-            message: "API Version No Compatible :("
-        });
-    }
-});
-
-appDiscordV2.use(passportHelper.authenticate("bearer", {session: false}));
-
-
-
-appDiscordV2.get("/email/:id", appVerify, (req, res, next) => {
+appDiscord.get("/email/:id",  middlewareVerify,(req, res, next) => {
     const users = req.params.id; 
     getEmailDiscord(req, res, users)
 });
-appDiscordV2.get("/global/:id", appVerify, (req, res, next) => {
+appDiscord.get("/global/:id", middlewareVerify, (req, res, next) => {
     const users = req.params.id; 
     getNameDiscord(req, res, users)
 });
-appDiscordV2.get("/rol/:users", appVerify, (req, res, next) => {
+appDiscord.get("/rol/:users", middlewareVerify, (req, res, next) => {
     const users = req.params.users; 
     getRolUser(req, res, users)
 });
 
 
-export  {appDiscord, appDiscordV2};
+
+
+
+export  {appDiscord};

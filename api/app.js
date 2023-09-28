@@ -2,7 +2,7 @@ import express  from "express";
 import cors from "cors";
 import { loadEnv } from "vite";
 import { appToken, appVerify, passport } from "./helpers/token.js";
-import {appDiscord, appDiscordV2} from "./routers/discord.js";
+import {appDiscord} from "./routers/discord.js";
 import {appIncidents, appIncidentsV2} from "./routers/incidents.js";
 import {appSupport, appSupportV2} from "./routers/support.js";
 import appUsers from "./routers/users.js";
@@ -19,7 +19,6 @@ app.use(passport.initialize());
 
 app.use("/login", appToken);
 
-app.use("/discord/v2",appDiscordV2);
 app.use("/discord", passport.authenticate('bearer', { session: false}) ,appVerify, appDiscord);
 
 app.use("/incidents/v2",appIncidentsV2);
