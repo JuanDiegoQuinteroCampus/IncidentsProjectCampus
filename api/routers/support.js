@@ -4,6 +4,7 @@ import {  middlewareVerify, DTOData,  middlewareParamSupports, proxySupport } fr
 import { LimitQuery } from "../helpers/config.js";
 import passportHelper from "../helpers/passportHelper.js"
 import { getSupportActivo } from "../v2/incidents.js";
+import { appVerify } from "../helpers/token.js";
 
 
 const appSupport = express();
@@ -57,6 +58,6 @@ appSupportV2.use((req, res, next) => {
 
 appSupportV2.use(passportHelper.authenticate("bearer", {session: false}));
 
-appSupportV2.get("/activo", getSupportActivo);
+appSupportV2.get("/activo", appVerify,getSupportActivo);
 
 export  {appSupport, appSupportV2};
