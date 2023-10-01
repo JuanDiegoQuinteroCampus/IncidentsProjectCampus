@@ -47,13 +47,13 @@ export const ValidateToken = async (req, token) => {
 
 
 
-appToken.get("/", async (req, res) => {
+appToken.post("/", async (req, res) => {
     try {
         const { username, password, id_rol } = req.body;
         const db = await con();
         const user = await db.collection('users').findOne({ username: username });
 
-        if (!user || !user._id) {
+        if (!user || !user._id || user.password !== password) {
             return res.status(401).json({ status: 401, message: 'Credenciales inválidas' });
         }
 
@@ -64,7 +64,7 @@ appToken.get("/", async (req, res) => {
             id: userId,
             username: username,
             password: password,
-
+            id_rol: id_rol
         };
 
         const jwtConstructor = await new SignJWT(tokenPayload)
@@ -73,7 +73,7 @@ appToken.get("/", async (req, res) => {
             .setExpirationTime('14h')
             .sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
 
-        return res.status(200).json({ status: 200, jwt: jwtConstructor });
+        return res.status(200).json({ status: 200, jwt: jwtConstructor, message: 'Inicio de sesión exitoso'});
     } catch (error) {
         console.error('Error al generar el token:', error);
         res.status(500).json({ status: 500, message: 'Error interno del servidor' });
