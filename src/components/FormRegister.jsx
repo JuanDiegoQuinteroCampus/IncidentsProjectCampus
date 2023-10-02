@@ -41,7 +41,7 @@ const [mensaje, setMensaje] = useState("");
     };
       
     const response = await fetch(
-      `http://${import.meta.env.VITE_HOSTNAME}:${import.meta.env.VITE_PORT_BACKEND}/users/post`,
+      `http://${import.meta.env.VITE_HOSTNAME}:${import.meta.env.VITE_PORT_BACKEND}/register/add`,
       {
         method: "POST",
         headers: {
@@ -80,6 +80,19 @@ const [mensaje, setMensaje] = useState("");
   
     return (
       <>
+      <style>
+                {`
+                
+                input[type="number"]::-webkit-inner-spin-button,
+                input[type="number"]::-webkit-outer-spin-button {
+                    -webkit-appearance: none;
+                    appearance: none;
+                    margin: 0;
+                }
+                `}
+            </style>
+
+
       <div className="w-full h-full flex items-center place-content-center flex-col justify-center items-center md:flex-nowrap mb-6 md:mb-0 gap-4 bglogin" style={{ background: 'linear-gradient(to top right, #FF69B4, #FFFF00)', height: '100vh' }}>
       <Card>
         <CardBody>
@@ -87,14 +100,14 @@ const [mensaje, setMensaje] = useState("");
             <h1  className="text-5xl">{register}</h1> 
             <form action="" onSubmit={submit}>
               <div className="flex w-full flex-col justify-center items-center md:flex-nowrap mb-6 md:mb-0 gap-4">
-                <Input size="lg" label="Username" placeholder="Enter your Username" type="text"
-className="w-7/12" id="namer" onChange={Document}/>
+                <Input size="lg" label="CC" placeholder="Enter your cc" type="number"
+className="w-7/12" id="cc" onChange={Document}/>
+                <Input size="lg" type="text" label="Username" placeholder="Enter your username"
+className="w-7/12" id="user" onChange={User}/>
                 <Input size="lg" type="password" label="Password" placeholder="Enter your password"
-className="w-7/12" id="passwordr" onChange={User}/>
-                <Input size="lg" type="text" label="City" placeholder="Enter your City"
-className="w-7/12" id="cityr" onChange={Password}/>
-                <Input size="lg" type="tel" label="Phone" placeholder="Enter your Cellphone"
-className="w-7/12" id="celphoner" onChange={Mail}/>
+className="w-7/12" id="pass" onChange={Password}/>
+                <Input size="lg" type="email" label="Email" placeholder="Enter your email"
+className="w-7/12" id="email" onChange={Mail}/>
                 <Button radius="lg" type="submit" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">Send</Button>
               </div>
             </form>
