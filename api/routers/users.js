@@ -3,6 +3,7 @@ import { deleteUsers, getAllUsers, postUsers, putUsers } from "../v1/user.js";
 import { proxyUsers, middlewareVerify, DTOData, middlewareParamUsers } from "../middleware/proxyUsers.js";
 import { LimitQuery } from "../helpers/config.js";
 import passportHelper from "../helpers/passportHelper.js"
+import { appVerify } from "../helpers/token.js";
 
 const appUsers = express();
 appUsers.use(express.json());
@@ -34,4 +35,24 @@ appUsers.delete("/delete/:id", middlewareVerify, async (req, res) => {
     deleteUsers(req, res, UsersId)
 });
 
-export default appUsers;
+const appUsersV2 = express();
+appUsersV2.use(express.json());
+appUsersV2.use(LimitQuery());
+appUsersV2.use((req, res, next) => {
+    const apiVersion = req.headers["x-api"];
+    if (apiVersion === "1.0") {
+        next();
+    } else {
+        res.status(400).json({
+            status: 400,
+            message: "API Version No Compatible :("
+        });
+    }
+});
+
+appUsersV2.use(passportHelper.authenticate("bearer", {session: false}));
+
+appUsersV2.post("/add", appVerify, middlewareVerify, proxyUsers,postUsers);
+
+
+export  {appUsers, appUsersV2};

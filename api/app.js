@@ -5,7 +5,7 @@ import { appToken, appVerify, passport } from "./helpers/token.js";
 import {appDiscord} from "./routers/discord.js";
 import {appIncidents, appIncidentsV2} from "./routers/incidents.js";
 import {appSupport, appSupportV2} from "./routers/support.js";
-import appUsers from "./routers/users.js";
+import {appUsers, appUsersV2} from "./routers/users.js";
 
 
 const env = loadEnv("development", process.cwd(), 'VITE')
@@ -27,6 +27,7 @@ app.use("/incidents", passport.authenticate('bearer', { session: false}) ,appVer
 app.use("/support/v2",appSupportV2);
 app.use("/support", passport.authenticate('bearer', { session: false}) ,appVerify, appSupport);
 
+app.use("/register/v2", appUsersV2);
 app.use("/users", passport.authenticate('bearer', { session: false}) ,appVerify, appUsers);
 
 
