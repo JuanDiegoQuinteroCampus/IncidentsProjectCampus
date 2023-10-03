@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext , useNavigate} from "react-router-dom";
 import {Input, Button, Card, CardBody} from "@nextui-org/react";
 
 export default function FormLogin() {
@@ -8,6 +8,7 @@ export default function FormLogin() {
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [login] = useOutletContext();
+  const navigate = useNavigate(); 
 
   const Name = (e) => {
     setNombre(e.target.value);
@@ -37,7 +38,9 @@ export default function FormLogin() {
       if (response.status === 200) {
         const responseData = await response.json();
         setMensaje(`Bienvenido, ${data.username}! `);/* Token JWT: ${responseData.jwt} */
-        console.log(responseData.jwt);
+        localStorage.setItem('token', responseData.jwt);
+        localStorage.setItem('user', data.username);
+        navigate('/')
       } else {
         setMensaje("Credenciales incorrectas");
       }

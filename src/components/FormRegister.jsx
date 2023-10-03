@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { useOutletContext } from 'react-router-dom'
+import { useOutletContext, useNavigate , Outlet} from 'react-router-dom'
 import {Input, Button, Card, CardBody} from "@nextui-org/react";
 
 export default function FormRegister() {
 const [register] = useOutletContext();
 const [mensaje, setMensaje] = useState("");
-
+const navigate = useNavigate();
+console.log("FormRegister se está renderizando");
     const [cc, setCC] = useState("");
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
@@ -56,6 +57,7 @@ const [mensaje, setMensaje] = useState("");
       const responseData = await response.json();
       setMensaje(`Bienvenido, ${data.username}! `);/* Token JWT: ${responseData.jwt} */
       console.log(responseData.jwt);
+      navigate('/login');
     } else {
       setMensaje("Credenciales incorrectas");
     }
@@ -118,7 +120,8 @@ className="w-7/12" id="email" onChange={Mail}/>
         </CardBody>
       </Card>
     </div>
-      </>
+    <Outlet />
+    </>
     );
 }
 
