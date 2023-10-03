@@ -1,43 +1,29 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Error404 from './routes/Error404'
-import Register from './routes/Register'
-import Login from './routes/Login'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Error404 from './routes/Error404';
 
-import FormRegister from './components/FormRegister'
-import FormLogin from './components/FormLogin'
+import FormRegister from './components/FormRegister';
+import FormLogin from './components/FormLogin';
+import Reports from './components/Reports';
+import { NextUIProvider } from "@nextui-org/react";
+import Home from './components/Home';
 
-import { NextUIProvider } from "@nextui-org/react" ;   
+
+// ... Otros imports ...
+
 
 const root = createBrowserRouter([
-
   {
-    path:"/",
-    element:<Register/>,
-
-    children:[
-      {
-        path:"Register/",
-        element: <FormRegister/>
-      }
+    path: "/",
+    element: <Home />,
+    children: [
+      { path: "/register", element: <FormRegister /> }, 
+      { path: "/login", element: <FormLogin /> }, 
+      { path: "/reports", element: <Reports /> }, 
     ],
-    errorElement: <Error404/>
+    errorElement: <Error404 />,
   },
-  {
-    path:"/",
-    element:<Login/>,
-
-    children:[
-      {
-        path:"Login/",
-        element: <FormLogin/>
-      }
-    ],
-    errorElement: <Error404/>
-  },
-
-
 ])
 
 
@@ -47,4 +33,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <RouterProvider router={root}/>
     </NextUIProvider>
   </React.StrictMode>,
-)
+);
