@@ -24,6 +24,8 @@ const ReportTable = ({ reports }) => {
               <TableCell>Zona</TableCell>
               <TableCell>Lugar</TableCell>
               <TableCell>Prioridad</TableCell>
+              <TableCell>UserReport</TableCell>
+
             </TableRow>
           </TableHead>
           <TableBody>
@@ -36,6 +38,8 @@ const ReportTable = ({ reports }) => {
                 <TableCell>{report.zone}</TableCell>
                 <TableCell>{report.place}</TableCell>
                 <TableCell>{report.priority}</TableCell>
+                <TableCell>{report.name_User}</TableCell>
+
               </TableRow>
             ))}
           </TableBody>
@@ -54,6 +58,7 @@ const AddReportForm = ({ onAddReport }) => {
     zone: "",
     place: "",
     priority: "",
+    name_User: localStorage.getItem("user") || "",
   });
   const [error, setError] = useState(null);
 
@@ -87,6 +92,7 @@ const AddReportForm = ({ onAddReport }) => {
           zone: "",
           place: "",
           priority: "",
+          name_User: user,
         });
 
         // Borra el mensaje de error si había uno previamente
@@ -104,7 +110,7 @@ const AddReportForm = ({ onAddReport }) => {
 
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={1}>
       <Grid item xs={1}>
         <TextField
           name="name"
@@ -121,10 +127,10 @@ const AddReportForm = ({ onAddReport }) => {
           onChange={handleInputChange}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={1}>
         <TextField
           name="date"
-          label="aaaa/mm/dd"
+          label="AAAA-MM-DD"
           value={newReport.date}
           onChange={handleInputChange}
         />
@@ -145,7 +151,7 @@ const AddReportForm = ({ onAddReport }) => {
           onChange={handleInputChange}
         />
       </Grid>
-      <Grid item xs={2}>
+      <Grid item xs={1}>
         <TextField
           name="place"
           label="Place"
@@ -153,11 +159,19 @@ const AddReportForm = ({ onAddReport }) => {
           onChange={handleInputChange}
         />
       </Grid>
-      <Grid item xs={1}>
+      <Grid item xs={2}>
         <TextField
           name="priority"
           label="Priority"
           value={newReport.priority}
+          onChange={handleInputChange}
+        />
+      </Grid>
+      <Grid item xs={1}>
+        <TextField
+          name="User"
+          label="UserReport"
+          value={newReport.name_User}
           onChange={handleInputChange}
         />
       </Grid>
@@ -183,7 +197,7 @@ export default function Reports() {
 
   return (
     <div>
-      <h1 className="text-5x1">Incident's Reports</h1>
+      <h1 className=" font-bold text-5xl font-mono mt-4 mb-1">Incident's Reports</h1>
       <ReportTable reports={reports} />
       <AddReportForm onAddReport={handleAddReport} />
     </div>
