@@ -1,4 +1,12 @@
 use("db_incidentsCampus")
+db.createCollection("counters");
+
+db.counters.insertMany([
+    { _id: "incidentsId", sequence_value: 0 },
+    { _id: "supportId", sequence_value: 0 }
+]);
+
+use("db_incidentsCampus")
 db.createCollection("users",{
     validator:{
     $jsonSchema:{
