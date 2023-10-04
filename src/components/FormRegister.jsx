@@ -3,7 +3,6 @@ import { useOutletContext, useNavigate , Outlet} from 'react-router-dom'
 import {Input, Button, Card, CardBody} from "@nextui-org/react";
 
 export default function FormRegister() {
-const [register] = useOutletContext();
 const [mensaje, setMensaje] = useState("");
 const navigate = useNavigate();
 console.log("FormRegister se está renderizando");
@@ -99,17 +98,17 @@ console.log("FormRegister se está renderizando");
       <Card>
         <CardBody>
           <div className="w-full h-full flex flex-col gap-4 bg-white">
-            <h1  className="text-5xl">{register}</h1> 
+            <h1  className="text-5xl">Register</h1> 
             <form action="" onSubmit={submit}>
               <div className="flex w-full flex-col justify-center items-center md:flex-nowrap mb-6 md:mb-0 gap-4">
                 <Input size="lg" label="CC" placeholder="Enter your cc" type="number"
-className="w-7/12" id="cc" onChange={Document}/>
+                  className="w-7/12" id="cc" onChange={Document}/>
                 <Input size="lg" type="text" label="Username" placeholder="Enter your username"
-className="w-7/12" id="user" onChange={User}/>
+                  className="w-7/12" id="user" onChange={User}/>
                 <Input size="lg" type="password" label="Password" placeholder="Enter your password"
-className="w-7/12" id="pass" onChange={Password}/>
+                  className="w-7/12" id="pass" onChange={Password}/>
                 <Input size="lg" type="email" label="Email" placeholder="Enter your email"
-className="w-7/12" id="email" onChange={Mail}/>
+                  className="w-7/12" id="email" onChange={Mail}/>
                 <Button radius="lg" type="submit" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">Send</Button>
               </div>
             </form>
