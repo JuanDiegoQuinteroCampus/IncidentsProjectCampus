@@ -8,16 +8,19 @@ import FormLogin from './components/FormLogin';
 import Reports from './components/Reports';
 import { NextUIProvider } from "@nextui-org/react";
 import Home from './components/Home';
+import Start from './components/dasboard/Start';
 
 
 // ... Otros imports ...
 
 
 const root = createBrowserRouter([
+  
   {
     path: "/",
     element: <Home />,
     children: [
+      { path: "/", element: <Start /> }, 
       { path: "/register", element: <FormRegister /> }, 
       { path: "/login", element: <FormLogin /> }, 
       { path: "/reports", element: <Reports /> }, 
