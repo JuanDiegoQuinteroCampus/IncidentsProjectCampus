@@ -27,16 +27,30 @@ export async function postUsers(req, res) {
         const db = await con();
         const collection = db.collection('users');
         
-        const userData = {
-            ...req.body,
-            id_rol: 2
-        };
-
-        await collection.insertOne(userData);
-        res.status(201).json({
-            satus: 201,
-            message: "Datos del usuario de Users Insertado Exitosamente :)"
+        const existingUser = await collection.findOne({
+            $or: [
+                { email: req.body.email },
+                { CC: req.body.CC }
+            ]
         });
+
+        if (existingUser) {
+            res.status(400).json({
+                status: 400,
+                message: "El usuario ya existe con el mismo correo electrónico o número de tarjeta de identidad."
+            });
+        } else {
+            const userData = {
+                ...req.body,
+                id_rol: 2
+            };
+
+            await collection.insertOne(userData);
+            res.status(201).json({
+                status: 201,
+                message: "Datos del usuario de Users Insertado Exitosamente :)"
+            });
+        }
     } catch (e) {
         res.status(500).json({
             satus: 500,
