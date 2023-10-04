@@ -1,7 +1,15 @@
+function siguienteId(coleccion) {
+  const sequenceDocument = db.counters.findOneAndUpdate(
+      { _id: `${coleccion}Id` },
+      { $inc: { sequence_value: 1 } },
+      { returnDocument: "after" }
+  );
+  return sequenceDocument.sequence_value;
+}
 use("db_incidentsCampus");
 db.incidents.insertMany([
   {
-    _id: 1,
+    _id:  Number(siguienteId("incidents")),
     name: "Incidente 1",
     description: "Descripción del incidente 1",
     date: ISODate("2023-09-20"),
@@ -10,7 +18,7 @@ db.incidents.insertMany([
     place: "Lugar A",
     priority: "Urgente",
     solution_date: ISODate("2023-09-21"),
-    id_soporte: 201,
+    id_soporte: null,
     created_date: ISODate("2023-09-20"),
     update_date: ISODate("2023-09-20"),
     delete_date: null,
@@ -18,7 +26,7 @@ db.incidents.insertMany([
 
   },
   {
-    _id: 2,
+    _id:  Number(siguienteId("incidents")),
     name: "Incidente 2",
     description: "Descripción del incidente 2",
     date: ISODate("2023-09-21"),
@@ -38,7 +46,7 @@ db.incidents.insertMany([
 use("db_incidentsCampus");
 db.support.insertMany([
   {
-    _id: 201,
+    _id:  Number(siguienteId("support")),
     name: "Soporte 1",
     personal: "Personal A",
     date: ISODate("2023-09-20"),
@@ -50,7 +58,7 @@ db.support.insertMany([
     support_person: "Pepito"
   },
   {
-    _id: 202,
+    _id:  Number(siguienteId("support")),
     name: "Soporte 2",
     personal: "Personal B",
     date: ISODate("2023-09-21"),
