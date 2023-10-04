@@ -6,14 +6,16 @@ export default function FormRegister() {
 const [mensaje, setMensaje] = useState("");
 const navigate = useNavigate();
 console.log("FormRegister se está renderizando");
-    const [cc, setCC] = useState("");
+    const [cc, setCC] = useState(0);
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [mail, setEmail] = useState("");
 
   
+
     const Document = (e) => {
-      setCC(e.target.value);
+      const ccValue = parseInt(e.target.value, 10); 
+    setCC(ccValue);
     };
     const User = (e) => {
       setUser(e.target.value);
@@ -24,14 +26,11 @@ console.log("FormRegister se está renderizando");
     const Mail = (e) => {
       setEmail(e.target.value);
     };
+    const [error, setError] = useState(null);
   
     const fetchData = async (e) => {
       
-  
-  // document.querySelector("#namer").value = '';
-  // document.querySelector("#passwordr").value = '';
-  // document.querySelector("#cityr").value = '';
-  // document.querySelector("#celphoner").value = '';
+
   try {
     let data = {
       CC: cc,
@@ -41,7 +40,7 @@ console.log("FormRegister se está renderizando");
     };
       
     const response = await fetch(
-      `http://${import.meta.env.VITE_HOSTNAME}:${import.meta.env.VITE_PORT_BACKEND}/register/add`,
+      `http://${import.meta.env.VITE_HOSTNAME}:${import.meta.env.VITE_PORT_BACKEND}/register/v2/add`,
       {
         method: "POST",
         headers: {
@@ -52,14 +51,16 @@ console.log("FormRegister se está renderizando");
       }
     );
 
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
       const responseData = await response.json();
-      setMensaje(`Bienvenido, ${data.username}! `);/* Token JWT: ${responseData.jwt} */
+      setMensaje(`Bienvenido, ${data.username}! `);
       console.log(responseData.jwt);
       navigate('/login');
     } else {
-      setMensaje("Credenciales incorrectas");
-    }
+      const errorData = await response.json();
+        console.error("Error al agregar el usuario:", errorData);
+        setError(`Error al agregar el usuario. Código de respuesta: ${response.status}. Mensaje: ${errorData.message}`);
+      }
     console.log(response);
   } catch (error) {
     console.error("Error al enviar la solicitud:", error);
@@ -111,6 +112,11 @@ console.log("FormRegister se está renderizando");
                   className="w-7/12" id="email" onChange={Mail}/>
                 <Button radius="lg" type="submit" className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg">Send</Button>
               </div>
+              {error && (
+        <div style={{ color: 'red', marginTop: '10px' }}>
+          {error}
+        </div>
+      )}
             </form>
             <div>
                 <h4>{mensaje}</h4>

@@ -38,21 +38,7 @@ appUsers.delete("/delete/:id", middlewareVerify, async (req, res) => {
 const appUsersV2 = express();
 appUsersV2.use(express.json());
 appUsersV2.use(LimitQuery());
-appUsersV2.use((req, res, next) => {
-    const apiVersion = req.headers["x-api"];
-    if (apiVersion === "1.0") {
-        next();
-    } else {
-        res.status(400).json({
-            status: 400,
-            message: "API Version No Compatible :("
-        });
-    }
-});
 
-appUsersV2.use(passportHelper.authenticate("bearer", {session: false}));
-
-appUsersV2.post("/add", appVerify, middlewareVerify, proxyUsers,postUsers);
-
+appUsersV2.post("/add", proxyUsers, postUsers);
 
 export  {appUsers, appUsersV2};
