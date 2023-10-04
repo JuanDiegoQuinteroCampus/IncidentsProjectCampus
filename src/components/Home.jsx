@@ -124,7 +124,7 @@ export default function Home() {
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
                       {page === "Reports" ? (
-                        <Link to="/reports">REPORTS</Link>
+                        <Link to="/reports" >REPORTS</Link>
                       ) : (
                         page
                       )}
@@ -167,7 +167,7 @@ export default function Home() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="Remy Sharp" src="" />
                 </IconButton>
               </Tooltip>
               <Menu
@@ -211,7 +211,7 @@ export default function Home() {
       </AppBar>
 
       <Outlet />
-      <Content/>
+      
     </>
   );
 }
