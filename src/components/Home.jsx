@@ -12,8 +12,13 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import Content from './Content'
 
-import { Link, Outlet } from "react-router-dom";
+
+
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
+
 
 const pages = ["Home", "Reports", "Blog"];
 const settings = [
@@ -25,11 +30,13 @@ const settings = [
   "Register",
 ];
 
- const login ="Login"
- const register= "Register"
 export default function Home() {
+
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  
+  const history = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -42,14 +49,27 @@ export default function Home() {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+  const handleCloseUserMenu = (event) => {
+    if (
+      event.target.textContent !== "Login" &&
+      event.target.textContent !== "Register"
+    ) {
+      setAnchorElUser(null);
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+
+    history("/");
   };
 
   return (
     <>
-    
-      <AppBar position="static" sx={{ backgroundColor: "black" , width: '100%', height: '100%'}}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "black", width: "100%", height: "100%" }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
@@ -104,7 +124,7 @@ export default function Home() {
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
                       {page === "Reports" ? (
-                        <Link to="reports">Reports</Link>
+                        <Link to="/reports">REPORTS</Link>
                       ) : (
                         page
                       )}
@@ -167,7 +187,12 @@ export default function Home() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <MenuItem
+                    key={setting}
+                    onClick={
+                      setting === "Logout" ? handleLogout : handleCloseUserMenu
+                    }
+                  >
                     <Typography textAlign="center">
                       {setting === "Login" ? (
                         <Link to="/login">Login</Link>
@@ -184,9 +209,9 @@ export default function Home() {
           </Toolbar>
         </Container>
       </AppBar>
-      <Outlet context={[register,]}/><Outlet context={[login]}/>
-      
 
+      <Outlet />
+      <Content/>
     </>
   );
 }
