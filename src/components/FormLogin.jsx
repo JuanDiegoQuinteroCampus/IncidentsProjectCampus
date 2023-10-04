@@ -7,7 +7,6 @@ export default function FormLogin() {
   const [nom, setNombre] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
-  const [login] = useOutletContext();
   const navigate = useNavigate(); 
 
   const Name = (e) => {
@@ -66,7 +65,7 @@ export default function FormLogin() {
       <Card>
         <CardBody>
           <div className="w-full h-full flex flex-col gap-4 bg-white">
-            <h1 className="text-5xl">{login}</h1>
+            <h1 className="text-5xl">Login</h1>
             <form onSubmit={handleSubmit}>
               <div className="flex w-full flex-col justify-center items-center md:flex-nowrap mb-6 md:mb-0 gap-4">
                 <Input size="lg" label="Username" placeholder="Enter your Username" type="text" id="name" className="w-7/12" onChange={Name} value={nom} />
