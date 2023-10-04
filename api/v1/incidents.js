@@ -29,7 +29,10 @@ export async function postIncidents(req, res) {
 
         const currentDate = new Date();
 
+        const nextIncidentId = siguienteId("incidents"); // Obtener el próximo ID autoincrementable
+
         const insertDocument = {
+            _id: nextIncidentId, // Utilizar el nuevo ID autoincrementable
             ...req.body,
             date: new Date(req.body.date),
             created_date: currentDate, 
