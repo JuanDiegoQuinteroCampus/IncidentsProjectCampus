@@ -2,6 +2,21 @@ import express from "express";
 import { ObjectId} from "mongodb";
 import {con}from "../db/atlas.js";
 
+export async function nextId(collectionName) {
+    try {
+        const db = await con();
+        const counterCollection = db.collection('counters');
+        const updatedDocument = await counterCollection.findOneAndUpdate(
+            { _id: `${collectionName}Id` },
+            { $inc: { sequence_value: 1 } },
+            { returnDocument: "after" }
+        );
+        const { _id, sequence_value } = updatedDocument.value;
+        return sequence_value;
+    } catch (error) {
+        console.log(error);
+    }
+}
 export async function getAllIncidents(req, res){
     try {
         let db = await con();
@@ -23,21 +38,24 @@ export async function getAllIncidents(req, res){
 
 
 export async function postIncidents(req, res) {
+    const db = await con();
+    const collection = db.collection('incidents');
+
+    const currentDate = new Date();
+
+    const authorId = await nextId('incidents');
+    const insertDocument = {
+        ...req.body,
+        _id: authorId, 
+
+        date: new Date(req.body.date),
+        created_date: currentDate, 
+    };
+
     try {
-        const db = await con();
-        const collection = db.collection('incidents');
+        
 
-        const currentDate = new Date();
-
-        const nextIncidentId = siguienteId("incidents"); // Obtener el próximo ID autoincrementable
-
-        const insertDocument = {
-            _id: nextIncidentId, // Utilizar el nuevo ID autoincrementable
-            ...req.body,
-            date: new Date(req.body.date),
-            created_date: currentDate, 
-        };
-
+       
         await collection.insertOne(insertDocument);
 
         res.status(201).json({
@@ -48,8 +66,10 @@ export async function postIncidents(req, res) {
         res.status(500).json({
             status: 500,
             message: "Internal Server Error :(",
-            error: "Dato duplicado"
+            // error: "Dato duplicado"
         });
+        console.log(authorId, insertDocument);
+        console.log(e);
     }
 };
 
