@@ -12,18 +12,11 @@ import { IsInt, IsString, IsOptional, IsNotEmpty, Matches, IsDefined } from 'cla
 export class IncidentDTO {
     constructor(data) {
         Object.assign(this, data);
-        this._id = 0;
         this.date = '';
         this.id_soporte = 0;
         this.created_date = '';
     }
 }
-__decorate([
-    Expose({ name: '_id' }),
-    IsInt({ message: '_id debe ser de tipo int' }),
-    IsDefined({ message: 'El parametro "_id" es Obligatorio' }),
-    __metadata("design:type", Number)
-], IncidentDTO.prototype, "_id", void 0);
 __decorate([
     Expose({ name: 'name' }),
     IsString({ message: 'name debe ser de tipo string' }),
