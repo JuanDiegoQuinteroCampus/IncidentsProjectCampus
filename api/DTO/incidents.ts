@@ -3,10 +3,7 @@ import { Expose } from 'class-transformer';
 import { IsInt, IsString, IsDate, IsOptional, IsNotEmpty, Matches, IsDefined } from 'class-validator';
 
 export class IncidentDTO {
-  @Expose({ name: '_id' })
-  @IsInt({ message: '_id debe ser de tipo int' })
-  @IsDefined({ message: 'El parametro "_id" es Obligatorio' })
-  _id: number;
+  
 
   @Expose({ name: 'name' })
   @IsString({ message: 'name debe ser de tipo string' })
@@ -84,7 +81,6 @@ export class IncidentDTO {
 
   constructor(data: Partial<IncidentDTO>) {
     Object.assign(this, data);
-    this._id = 0;
     this.date = '';
     this.id_soporte=0;
     this.created_date = '';
