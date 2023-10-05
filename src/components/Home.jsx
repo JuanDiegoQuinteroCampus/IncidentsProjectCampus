@@ -12,35 +12,20 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import Content from './Content'
-
-
-
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
-
-
-const pages = ["Home", "Reports", "Blog"];
-const settings = [
-  "Profile",
-  "Account",
-  "Dashboard",
-  "Logout",
-  "Login",
-  "Register",
-];
+const pages = ["Home", "Reports", "Blog", "Incidents"];
+const settings = ["Profile", "Logout", "Login", "Register"];
 
 export default function Home() {
-
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  
   const history = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -60,7 +45,6 @@ export default function Home() {
 
   const handleLogout = () => {
     localStorage.clear();
-
     history("/");
   };
 
@@ -88,7 +72,7 @@ export default function Home() {
                 textDecoration: "none",
               }}
             >
-              LOGO
+              CAMPUSLANDS
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -124,7 +108,11 @@ export default function Home() {
                   <MenuItem key={page} onClick={handleCloseNavMenu}>
                     <Typography textAlign="center">
                       {page === "Reports" ? (
-                        <Link to="/reports" >REPORTS</Link>
+                        <Link to="/reports">Report</Link>
+                      ) : page === "Incidents" ? (
+                        <Link to="/incidents">Incident</Link>
+                      ) : page === "Home" ? (
+                        <Link to="/">Home</Link>
                       ) : (
                         page
                       )}
@@ -159,7 +147,15 @@ export default function Home() {
                   onClick={handleCloseNavMenu}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
-                  {page}
+                  {page === "Reports" ? (
+                    <Link to="/reports">REPORTS</Link>
+                  ) : page === "Incidents" ? (
+                    <Link to="/incidents">Incident</Link>
+                  ) : page === "Home" ? (
+                    <Link to="/">Home</Link>
+                  ) : (
+                    page
+                  )}
                 </Button>
               ))}
             </Box>
@@ -211,7 +207,6 @@ export default function Home() {
       </AppBar>
 
       <Outlet />
-      
     </>
   );
 }
